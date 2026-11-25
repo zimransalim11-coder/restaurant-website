@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice Garden | Restaurant</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fffaf3;
+            color: #25221e
+        }
+
+        header {
+            background: #20251f;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px
+        }
+
+        .logo {
+            font-size: 26px;
+            color: #ffb84d;
+            font-weight: bold
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px
+        }
+
+        .hero {
+            min-height: 410px;
+            padding: 75px 8%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(90deg, #171a17e8, #171a1750),
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1500&q=80') center/cover;
+            color: white
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 64px);
+            max-width: 600px;
+            margin-bottom: 18px
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px
+        }
+
+        .btn {
+            background: #e97929;
+            color: white;
+            border: 0;
+            border-radius: 6px;
+            padding: 13px 22px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none
+        }
+
+        section {
+            padding: 55px 7%
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px
+        }
+
+        .heading h2 {
+            font-size: 34px;
+            margin-bottom: 10px
+        }
+
+        .heading p {
+            color: #716b62
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px
+        }
+
+        .item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px #0000000c
+        }
+
+        .item img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover
+        }
+
+        .details {
+            padding: 18px
+        }
+
+        .details p {
+            color: #777;
+            margin: 10px 0
+        }
+
+        .price {
+            color: #d86d23;
+            font-size: 20px;
+            font-weight: bold
+        }
+
+        .item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px
+        }
+
+        .item button {
+            padding: 10px 12px;
+            font-size: 14px
+        }
+
+        .cart {
+            background: #f2e9dc;
+            text-align: center
+        }
+
+        #cart-items {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #d8cbb9;
+            gap: 10px
+        }
+
+        .cart-row button {
+            padding: 3px 8px
+        }
+
+        .total {
+            font-size: 23px;
+            font-weight: bold;
+            margin: 20px
+        }
+
+        .contact {
+            text-align: center;
+            background: #20251f;
+            color: white
+        }
+
+        .contact p {
+            margin: 12px
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: #171a17;
+            color: white
+        }
+
+        @media(max-width:600px) {
+            header {
+                justify-content: center;
+                text-align: center
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 14px
+            }
+
+            .hero {
+                padding: 55px 7%
+            }
+
+            section {
+                padding: 40px 5%
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0">🍽 Spice Garden</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#cart">Cart (<span id="count">0</span>)</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="hero" id="home">
+        <div>
+            <h1 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">Delicious Food, Happy Moments</h1>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">Fresh ingredients, amazing flavors and food made with love.</p>
+            <a class="btn" href="#menu" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">Explore Our Menu</a>
+        </div>
+    </div>
+
+    <section id="menu">
+        <div class="heading">
+            <h2 data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">Our Popular Menu</h2>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">Discover your next favorite meal.</p>
+        </div>
+        <div class="menu" id="food-menu"></div>
+    </section>
+
+    <section class="cart" id="cart">
+        <div class="heading">
+            <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">Your Shopping Cart 🛒</h2>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">Review your items before ordering.</p>
+        </div>
+        <div id="cart-items" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">Your cart is empty.</div>
+        <div class="total" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="700">Total: Rs. <span id="total">0</span></div>
+        <button class="btn" onclick="checkout()" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">Place Order</button>
+        <p style="margin-top:12px;font-size:13px" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
+            Demo website: orders are not sent to a restaurant automatically.
+        </p>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">Visit Spice Garden</h2>
+        <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">Fresh food, friendly service and a warm atmosphere.</p>
+        <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">📍 Your Restaurant Address</p>
+        <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">📞 Add Your Phone Number</p>
+        <a class="btn" href="#menu">Order Your Favorites</a>
+    </section>
+
+    <script>
+        const foods = [
+            {
+                name: "Chicken Biryani", price: 450, emoji: "🍛",
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j0Z11P2Q9KrlsOsZBLcUVlrc5Uw5nvgXtuLE1pirig&s=10",
+                desc: "Aromatic rice with delicious spices."
+            },
+            {
+                name: "Zinger Burger", price: 550, emoji: "🍔",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80",
+                desc: "Crispy chicken, fresh lettuce and sauce."
+            },
+            {
+                name: "Italian Pizza", price: 900, emoji: "🍕",
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF9UmS2jtTpaDly1Td2PIHLTHAhVTLTLfOpA4gSayYsA&s ",
+                desc: "Cheesy pizza topped with fresh ingredients."
+            },
+            {
+                name: "Grilled Chicken", price: 750, emoji: "🍗",
+                img: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=600&q=80",
+                desc: "Juicy grilled chicken with savory seasoning."
+            },
+            {
+                name: "French Fries", price: 250, emoji: "🍟",
+                img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80",
+                desc: "Golden, crispy and perfectly salted."
+            },
+            {
+                name: "Chocolate Cake", price: 350, emoji: "🍰",
+                img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
+                desc: "Rich chocolate dessert for sweet moments."
+            }
+        ];
+
+        const cart = {};
+
+        document.getElementById("food-menu").innerHTML = foods.map((f, i) => `
+ <article class="item">
+  <img src="${f.img}" alt="${f.name}"
+       onerror="this.style.display='none'">
+  <div class="details">
+   <h3>${f.emoji} ${f.name}</h3>
+   <p>${f.desc}</p>
+   <div class="item-bottom">
+    <span class="price">Rs. ${f.price}</span>
+    <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
+   </div>
+  </div>
+ </article>`).join("");
+
+        function addToCart(i) {
+            cart[i] = (cart[i] || 0) + 1;
+            renderCart();
+        }
+        function changeQty(i, amount) {
+            cart[i] += amount;
+            if (cart[i] <= 0) delete cart[i];
+            renderCart();
+        }
+        function renderCart() {
+            let ids = Object.keys(cart);
+            document.getElementById("count").textContent =
+                ids.reduce((s, i) => s + cart[i], 0);
+            document.getElementById("total").textContent =
+                ids.reduce((s, i) => s + cart[i] * foods[i].price, 0);
+            document.getElementById("cart-items").innerHTML = ids.length
+                ? ids.map(i => `<div class="cart-row">
+   <span>${foods[i].name} × ${cart[i]}</span>
+   <span>Rs. ${foods[i].price * cart[i]}
+    <button onclick="changeQty(${i},-1)">−</button>
+    <button onclick="changeQty(${i},1)">+</button>
+   </span></div>`).join("")
+                : "Your cart is empty.";
+        }
+        function checkout() {
+            if (!Object.keys(cart).length) {
+                alert("Please add food to your cart first!");
+                return;
+            }
+            const order = Object.keys(cart).map(i =>
+                `${foods[i].name} x ${cart[i]}`
+            ).join("\n");
+            const total = Object.keys(cart).reduce((s, i) =>
+                s + foods[i].price * cart[i], 0);
+            alert("Your demo order:\n" + order +
+                "\nTotal: Rs. " + total +
+                "\n\nConnect a backend to submit real orders.");
+        }
+
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
